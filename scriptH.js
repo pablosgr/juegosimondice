@@ -76,10 +76,6 @@ function accionSimon() {
 }
 
 function compararSecuencias(secuenciaSimon, secuenciaJugador) {
-    if (secuenciaSimon.length !== secuenciaJugador.length) {
-        return false;
-    }
-
     for (let i = 0; i < secuenciaSimon.length; i++) {
         if (secuenciaSimon[i] !== secuenciaJugador[i]) {
             return false;
@@ -92,7 +88,6 @@ function pulsarColor(color) {
     if (turnoJugador) {
         secuenciaJugador.push(color);
         pulsaBoton(color);
-
 
         if (secuenciaJugador.length === secuenciaSimon.length) { //la primera vez siempre será la misma longitud, nunca saltará a la comprobación. 
             turnoJugador = false; //esto aquí (y no en accionSimon) evita que en la primera ronda, el jugador pulse varias veces el mismo botón, pues en el tiempo de espera del turno de Simon podría hacerlo
@@ -155,28 +150,24 @@ botonInicioN.addEventListener("click", () => {
 
 botonRojo.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_rojo.play();
         pulsarColor("rojo");
     }
 });
 
 botonAzul.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_azul.play();
         pulsarColor("azul");
     }
 });
 
 botonAmarillo.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_amarillo.play();
         pulsarColor("amarillo");
     }
 });
 
 botonVerde.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_verde.play();
         pulsarColor("verde");
     }
 });

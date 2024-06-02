@@ -29,7 +29,7 @@ let juegoIniciado = false;
 let turnoJugador = false;
 
 //funciones
-function pulsaBoton(color) {
+function pulsarBoton(color) {
     switch (color) {
         case "rojo":
             botonRojo.style.transform = "scale(1.1)";
@@ -67,21 +67,16 @@ function accionSimon() {
         random = Math.floor(Math.random() * 4);
         secuenciaSimon.push(colores[random]); //añade un nuevo color a la secuencia
         for (let i = 0; i < secuenciaSimon.length; i++) {
-            setTimeout(() => pulsaBoton(secuenciaSimon[i]),
+            setTimeout(() => pulsarBoton(secuenciaSimon[i]),
                 i * 700); // por cada color en la secuencia, añade segundos equivalentes para que se vea su pulsación y no se superpongan (de lo contrario, visualmente los pulsaria a la vez, aunque haya un orden)
         }
+        setTimeout(() => {
+            turnoJugador = true;
+        }, secuenciaSimon.length * 600); //esto hace que el turno del jugador se active al acabar la secuencia de simon.
     }
-    setTimeout(() => {
-        turnoJugador = true;
-    }, secuenciaSimon.length * 600); //esto hace que el turno del jugador se active al acabar la secuencia de simon.
-
 }
 
 function compararSecuencias(secuenciaSimon, secuenciaJugador) {
-    if (secuenciaSimon.length !== secuenciaJugador.length) {
-        return false;
-    }
-
     for (let i = 0; i < secuenciaSimon.length; i++) {
         if (secuenciaSimon[i] !== secuenciaJugador[i]) {
             return false;
@@ -93,8 +88,7 @@ function compararSecuencias(secuenciaSimon, secuenciaJugador) {
 function pulsarColor(color) {
     if (turnoJugador) {
         secuenciaJugador.push(color);
-        pulsaBoton(color);
-
+        pulsarBoton(color);
 
         if (secuenciaJugador.length === secuenciaSimon.length) { //la primera vez siempre será la misma longitud, nunca saltará a la comprobación. 
             turnoJugador = false; //esto aquí (y no en accionSimon) evita que en la primera ronda, el jugador pulse varias veces el mismo botón, pues en el tiempo de espera del turno de Simon podría hacerlo
@@ -108,12 +102,11 @@ function pulsarColor(color) {
                 }
                 puntuacion.innerText = contador;
                 secuenciaJugador = [];
-                setTimeout(accionSimon, 1000); // Espera 1 segundo antes de que Simon comience su turno
+                setTimeout(accionSimon(), 1000); // Espera 1 segundo antes de que Simon comience su turno
             } else {
                 finJuego();
             }
-        }
-        else {
+        } else {
             compararPulsacion();
         }
     }
@@ -157,28 +150,24 @@ botonInicioN.addEventListener("click", () => {
 
 botonRojo.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_rojo.play();
         pulsarColor("rojo");
     }
 });
 
 botonAzul.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_azul.play();
         pulsarColor("azul");
     }
 });
 
 botonAmarillo.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_amarillo.play();
         pulsarColor("amarillo");
     }
 });
 
 botonVerde.addEventListener("click", () => {
     if (turnoJugador) {
-        audio_verde.play();
         pulsarColor("verde");
     }
 });

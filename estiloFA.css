@@ -86,7 +86,7 @@ img#dos{
     animation-iteration-count: infinite;
 }
 
-@keyframes animacion2 { /*-85 px*/
+@keyframes animacion2 {
     0% {left: 0; bottom: 0;}
     25% {left: 0; bottom: 615px;}
     50% {left: 715px; bottom: 615px;}
