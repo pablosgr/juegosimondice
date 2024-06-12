@@ -29,7 +29,7 @@ let juegoIniciado = false;
 let turnoJugador = false;
 
 //funciones
-function pulsarBoton(color) {
+function pulsaBoton(color) {
     switch (color) {
         case "rojo":
             botonRojo.style.transform = "scale(1.1)";
@@ -67,12 +67,12 @@ function accionSimon() {
         random = Math.floor(Math.random() * 4);
         secuenciaSimon.push(colores[random]); //añade un nuevo color a la secuencia
         for (let i = 0; i < secuenciaSimon.length; i++) {
-            setTimeout(() => pulsarBoton(secuenciaSimon[i]),
+            setTimeout(() => pulsaBoton(secuenciaSimon[i]),
                 i * 700); // por cada color en la secuencia, añade segundos equivalentes para que se vea su pulsación y no se superpongan (de lo contrario, visualmente los pulsaria a la vez, aunque haya un orden)
         }
         setTimeout(() => {
             turnoJugador = true;
-        }, secuenciaSimon.length * 600); //esto hace que el turno del jugador se active al acabar la secuencia de simon.
+        }, secuenciaSimon.length * 700); //esto hace que el turno del jugador se active al acabar la secuencia de simon.
     }
 }
 
@@ -88,7 +88,7 @@ function compararSecuencias(secuenciaSimon, secuenciaJugador) {
 function pulsarColor(color) {
     if (turnoJugador) {
         secuenciaJugador.push(color);
-        pulsarBoton(color);
+        pulsaBoton(color);
 
         if (secuenciaJugador.length === secuenciaSimon.length) { //la primera vez siempre será la misma longitud, nunca saltará a la comprobación. 
             turnoJugador = false; //esto aquí (y no en accionSimon) evita que en la primera ronda, el jugador pulse varias veces el mismo botón, pues en el tiempo de espera del turno de Simon podría hacerlo
@@ -102,7 +102,7 @@ function pulsarColor(color) {
                 }
                 puntuacion.innerText = contador;
                 secuenciaJugador = [];
-                setTimeout(accionSimon(), 1000); // Espera 1 segundo antes de que Simon comience su turno
+                setTimeout(accionSimon, 900); // Espera 1 segundo antes de que Simon comience su turno, no se le llama con () cuando es un parametro del TimeOut
             } else {
                 finJuego();
             }

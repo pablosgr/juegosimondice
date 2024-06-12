@@ -71,7 +71,7 @@ function accionSimon() {
         }, 700);
         setTimeout(() => {
             turnoJugador = true;
-        }, 1200); //esto hace que el turno del jugador se active al acabar la secuencia de simon.
+        }, 1100); //esto hace que el turno del jugador se active al acabar la secuencia de simon.
     }
 }
 
@@ -101,7 +101,7 @@ function pulsarColor(color) {
                 }
                 puntuacion.innerText = contador;
                 secuenciaJugador = [];
-                setTimeout(accionSimon, 600); // Espera 1 segundo antes de que Simon comience su turno
+                setTimeout(accionSimon, 800); // Espera 1 segundo antes de que Simon comience su turno
             } else {
                 finJuego();
             }
